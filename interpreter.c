@@ -42,7 +42,7 @@ void interpret(char *programStream, char *outputVariables, char *result) {
     writeResult(outputVariables, result);
 }
 
-void writeResult(char *outputVariables, char *result) {                     // Записывает результат
+void writeResult(char *outputVariables, char *result) {                     // Р—Р°РїРёСЃС‹РІР°РµС‚ СЂРµР·СѓР»СЊС‚Р°С‚
     FILE *inputFile, *outputFile;
     inputFile = fopen(outputVariables, "r");
     outputFile = fopen(result, "w");
