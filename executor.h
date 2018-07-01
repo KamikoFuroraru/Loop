@@ -2,13 +2,13 @@
 #define EXECUTOR_H_INCLUDED
 
 struct variable {
-    char name[100];         // Возьмем например длинной 100
+    char name[100];         // Р’РѕР·СЊРјРµРј РЅР°РїСЂРёРјРµСЂ РґР»РёРЅРЅРѕР№ 100
     int value;
 };
 
 struct loopStack {
-    int index;              // Счетчик цикла
-    int count;              // Конечное значение
+    int index;              // РЎС‡РµС‚С‡РёРє С†РёРєР»Р°
+    int count;              // РљРѕРЅРµС‡РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ
     char *bodyLoop;
 };
 
