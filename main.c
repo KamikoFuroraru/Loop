@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     char *result = argv[3];
 
     int amountFile = sumFile(inputProgram);
-    char *memory = (char *) malloc(amountFile + 1);         // Выделяет блок памяти и возвращает указатель на начало блока
+    char *memory = (char *) malloc(amountFile + 1);         // Р’С‹РґРµР»СЏРµС‚ Р±Р»РѕРє РїР°РјСЏС‚Рё Рё РІРѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°С‡Р°Р»Рѕ Р±Р»РѕРєР°
 
     if (memory == NULL) {
         printf("Memory allocation error\n");
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     }
 
     readFile(inputProgram, memory);
-    interpret(memory, inputVariables, result);              // memory - начальный символ потока
+    interpret(memory, inputVariables, result);              // memory - РЅР°С‡Р°Р»СЊРЅС‹Р№ СЃРёРјРІРѕР» РїРѕС‚РѕРєР°
 
     return 0;
 }
@@ -40,7 +40,7 @@ int sumFile(char *fileName) {
     }
 
     int sign;
-    while (sign != EOF) {                                   // Возвращает 1, если был достигнут конец файла
+    while (sign != EOF) {                                   // Р’РѕР·РІСЂР°С‰Р°РµС‚ 1, РµСЃР»Рё Р±С‹Р» РґРѕСЃС‚РёРіРЅСѓС‚ РєРѕРЅРµС† С„Р°Р№Р»Р°
         sign = fgetc(file);
         sum++;
     }
