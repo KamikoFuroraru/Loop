@@ -16,14 +16,14 @@ void initWord() {
 
     while (*stream == ' ' || *stream == '\t') stream++;
 
-    if (*stream == 0) {                                             // Проверка конца программы
+    if (*stream == 0) {                                             // РџСЂРѕРІРµСЂРєР° РєРѕРЅС†Р° РїСЂРѕРіСЂР°РјРјС‹
         *word.name = 0;
         word.form = THEEND;
         return;
     }
 
-    if (strchr(":=+-;\n", *stream)) {                               // Поиск первого вхождения символа в строку
-        if (*stream == ':') {                                       // Проверка оператора присваивания
+    if (strchr(":=+-;\n", *stream)) {                               // РџРѕРёСЃРє РїРµСЂРІРѕРіРѕ РІС…РѕР¶РґРµРЅРёСЏ СЃРёРјРІРѕР»Р° РІ СЃС‚СЂРѕРєСѓ
+        if (*stream == ':') {                                       // РџСЂРѕРІРµСЂРєР° РѕРїРµСЂР°С‚РѕСЂР° РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
             *t++ = *stream++;
             if (*stream == '=') {
                 *t++ = *stream++;
@@ -37,12 +37,12 @@ void initWord() {
             printf("Expected := construction\n");
             exit(5);
         }
-        else if (*stream == '\n') {                                 //Проверка конца строки
+        else if (*stream == '\n') {                                 // РџСЂРѕРІРµСЂРєР° РєРѕРЅС†Р° СЃС‚СЂРѕРєРё
             *t++ = *stream++;
             *t = '\0';
             return;
         }
-        else {                                                      // Оператор + или -
+        else {                                                      // РћРїРµСЂР°С‚РѕСЂ + РёР»Рё -
             *t++ = *stream++;
             *t = '\0';
         }
@@ -50,19 +50,19 @@ void initWord() {
         return;
     }
 
-    if (isdigit(*stream)) {                                         // Проверка на число
+    if (isdigit(*stream)) {                                         // РџСЂРѕРІРµСЂРєР° РЅР° С‡РёСЃР»Рѕ
         while (!strchr(" :+-=;\r\n", *stream)) *t++ = *stream++;
         *t = '\0';
         word.type = CONSTANT;
         return;
     }
 
-    if (isalpha(*stream)) {                                         // Проверка на слово
+    if (isalpha(*stream)) {                                         // РџСЂРѕРІРµСЂРєР° РЅР° СЃР»РѕРІРѕ
         while (!strchr(" :+-=\r\n", *stream)) *t++ = *stream++;
 
         *t = '\0';
-        for (int i = 0; *keyword[i].name; i++) {                    // Сравниваем полученное слово с ключевыми и решаем, оно это или переменная
-            if (strcmp(keyword[i].name, word.name) == 0) word.form = keyword[i].form; // Сравниваем поочередно каждую пару символов (возвращает 0, если слова идентичны)
+        for (int i = 0; *keyword[i].name; i++) {                    // РЎСЂР°РІРЅРёРІР°РµРј РїРѕР»СѓС‡РµРЅРЅРѕРµ СЃР»РѕРІРѕ СЃ РєР»СЋС‡РµРІС‹РјРё Рё СЂРµС€Р°РµРј, РѕРЅРѕ СЌС‚Рѕ РёР»Рё РїРµСЂРµРјРµРЅРЅР°СЏ
+            if (strcmp(keyword[i].name, word.name) == 0) word.form = keyword[i].form; // РЎСЂР°РІРЅРёРІР°РµРј РїРѕРѕС‡РµСЂРµРґРЅРѕ РєР°Р¶РґСѓСЋ РїР°СЂСѓ СЃРёРјРІРѕР»РѕРІ (РІРѕР·РІСЂР°С‰Р°РµС‚ 0, РµСЃР»Рё СЃР»РѕРІР° РёРґРµРЅС‚РёС‡РЅС‹)
         }
 
         if (word.form) word.type = KEYWORD;
