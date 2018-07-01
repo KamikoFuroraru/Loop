@@ -7,14 +7,14 @@
 #include "executor.h"
 
 char *stream;
-int amountOfVar = 0;                                        // Количество переменных
-int loopNumber;                                             // Индекс начала стека
+int amountOfVar = 0;                                        // РљРѕР»РёС‡РµСЃС‚РІРѕ РїРµСЂРµРјРµРЅРЅС‹С…
+int loopNumber;                                             // РРЅРґРµРєСЃ РЅР°С‡Р°Р»Р° СЃС‚РµРєР°
 
-struct loopStack loop[30];                                  // Стек для цикла. Возьмем за глубину 30 вложений
+struct loopStack loop[30];                                  // РЎС‚РµРє РґР»СЏ С†РёРєР»Р°. Р’РѕР·СЊРјРµРј Р·Р° РіР»СѓР±РёРЅСѓ 30 РІР»РѕР¶РµРЅРёР№
 struct words word;
-struct variable *memoryPointer;                             // Указатель начала хренения в памяти
+struct variable *memoryPointer;                             // РЈРєР°Р·Р°С‚РµР»СЊ РЅР°С‡Р°Р»Р° С…СЂРµРЅРµРЅРёСЏ РІ РїР°РјСЏС‚Рё
 
-void loopPush(struct loopStack stack) {                     // Положить элемент в стек
+void loopPush(struct loopStack stack) {                     // РџРѕР»РѕР¶РёС‚СЊ СЌР»РµРјРµРЅС‚ РІ СЃС‚РµРє
     if (loopNumber > 30) {
         printf("Exceeded allowed number of cycles\n");
         exit(7);
@@ -23,7 +23,7 @@ void loopPush(struct loopStack stack) {                     // Положить элемент 
     loopNumber++;
 }
 
-struct loopStack loopPop() {                                // Взять элемент с вершины стека
+struct loopStack loopPop() {                                // Р’Р·СЏС‚СЊ СЌР»РµРјРµРЅС‚ СЃ РІРµСЂС€РёРЅС‹ СЃС‚РµРєР°
     loopNumber--;
     if (loopNumber < 0) {
         printf("Can't find END in LOOP construction or excess ; construction\n");
@@ -32,20 +32,20 @@ struct loopStack loopPop() {                                // Взять элемент с в
     return (loop[loopNumber]);
 }
 
-struct variable *findVar(char *name) {                      // Ищет переменную по имени
+struct variable *findVar(char *name) {                      // РС‰РµС‚ РїРµСЂРµРјРµРЅРЅСѓСЋ РїРѕ РёРјРµРЅРё
     int i = 1;
     struct variable *t = memoryPointer;
     while (i <= amountOfVar) {
-        if (!strcmp(name, (*t).name)) return t;             // Сравниваем пару символов
+        if (!strcmp(name, (*t).name)) return t;             // РЎСЂР°РІРЅРёРІР°РµРј РїР°СЂСѓ СЃРёРјРІРѕР»РѕРІ
         i++;
         t++;
     }
     return NULL;
 }
 
-struct variable *addVar(char *name) {                       // Добавляет переменную
+struct variable *addVar(char *name) {                       // Р”РѕР±Р°РІР»СЏРµС‚ РїРµСЂРµРјРµРЅРЅСѓСЋ
     amountOfVar++;
-    memoryPointer = (struct variable *) realloc(memoryPointer, sizeof(struct variable) * amountOfVar); // Перераспределение блоков памяти
+    memoryPointer = (struct variable *) realloc(memoryPointer, sizeof(struct variable) * amountOfVar);  // РџРµСЂРµСЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ Р±Р»РѕРєРѕРІ РїР°РјСЏС‚Рё
     struct variable *bufferPointer = memoryPointer;
 
     int i = 1;
@@ -55,13 +55,13 @@ struct variable *addVar(char *name) {                       // Добавляет перемен
     }
 
     struct variable *result = bufferPointer;
-    strcpy((*result).name, name);                           // Копируем
+    strcpy((*result).name, name);                           // РљРѕРїРёСЂСѓРµРј
     (*result).value = 0;
 
     return result;
 }
 
-void cond(int *result) {                                    // Проверяет текущее слово
+void cond(int *result) {                                    // РџСЂРѕРІРµСЂСЏРµС‚ С‚РµРєСѓС‰РµРµ СЃР»РѕРІРѕ
     struct variable *var = findVar(word.name);
 
     switch (word.type) {
@@ -71,7 +71,7 @@ void cond(int *result) {                                    // Проверяет текущее
             initWord();
             return;
         case CONSTANT:
-            *result = atoi(word.name);                       // Преобразуем строку в int
+            *result = atoi(word.name);                       // РџСЂРµРѕР±СЂР°Р·СѓРµРј СЃС‚СЂРѕРєСѓ РІ int
             initWord();
             if (*word.name != ';') {
                 printf("Can't find ; construction\n");
@@ -84,7 +84,7 @@ void cond(int *result) {                                    // Проверяет текущее
         }
 }
 
-void operation(char operator, int *a, int *b) {              // Операции
+void operation(char operator, int *a, int *b) {              // РћРїРµСЂР°С†РёРё
     switch (operator) {
         case '-':
             *a = *a - *b;
@@ -97,7 +97,7 @@ void operation(char operator, int *a, int *b) {              // Операции
     }
 }
 
-void doOperation(int *result) {                             // Выполняет операции
+void doOperation(int *result) {                             // Р’С‹РїРѕР»РЅСЏРµС‚ РѕРїРµСЂР°С†РёРё
     initWord();
     char operator;
     cond(result);
@@ -110,23 +110,23 @@ void doOperation(int *result) {                             // Выполняет операци
     }
 }
 
-void assignment() {                                          // Присваивает значение переменной
+void assignment() {                                          // РџСЂРёСЃРІР°РёРІР°РµС‚ Р·РЅР°С‡РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№
     int value;
     struct variable *var;
 
     if ((var = findVar(word.name)) == 0) var = addVar(word.name);
-    initWord();                                             // Считывает символ равенства
-    doOperation(&value);                                    // Выполняет операцию или считывает присваемое значение
-    (*var).value = value;                                   // Присвоить значение
+    initWord();                                             // РЎС‡РёС‚С‹РІР°РµС‚ СЃРёРјРІРѕР» СЂР°РІРµРЅСЃС‚РІР°
+    doOperation(&value);                                    // Р’С‹РїРѕР»РЅСЏРµС‚ РѕРїРµСЂР°С†РёСЋ РёР»Рё СЃС‡РёС‚С‹РІР°РµС‚ РїСЂРёСЃРІР°РµРјРѕРµ Р·РЅР°С‡РµРЅРёРµ
+    (*var).value = value;                                   // РџСЂРёСЃРІРѕРёС‚СЊ Р·РЅР°С‡РµРЅРёРµ
 }
 
 void exeLoop() {
     struct loopStack stack;
 
-    stack.index = 1;                                        // Начало отсчета цикла
-    int loopIterations = 0;                                 // Переменная счетчика
+    stack.index = 1;                                        // РќР°С‡Р°Р»Рѕ РѕС‚СЃС‡РµС‚Р° С†РёРєР»Р°
+    int loopIterations = 0;                                 // РџРµСЂРµРјРµРЅРЅР°СЏ СЃС‡РµС‚С‡РёРєР°
 
-    doOperation(&loopIterations);                           // Считывает управляющую переменную
+    doOperation(&loopIterations);                           // РЎС‡РёС‚С‹РІР°РµС‚ СѓРїСЂР°РІР»СЏСЋС‰СѓСЋ РїРµСЂРµРјРµРЅРЅСѓСЋ
 
     stack.count = loopIterations;
 
@@ -162,11 +162,11 @@ void exeLoop() {
 void exeEnd() {
     struct loopStack stack;
 
-    stack = loopPop();                                     // Считываем информацию о цикле
+    stack = loopPop();                                     // РЎС‡РёС‚С‹РІР°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ С†РёРєР»Рµ
 
     stack.index++;
-    if (stack.index > stack.count) return;                 // Завершаем
+    if (stack.index > stack.count) return;                 // Р—Р°РІРµСЂС€Р°РµРј
 
-    loopPush(stack);                                       // Запомнаем информацию
+    loopPush(stack);                                       // Р—Р°РїРѕРјРЅР°РµРј РёРЅС„РѕСЂРјР°С†РёСЋ
     stream = stack.bodyLoop;
 }
